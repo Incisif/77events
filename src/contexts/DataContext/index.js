@@ -5,6 +5,7 @@ import {
   useContext,
   useEffect,
   useState,
+  useMemo
 } from "react";
 
 const DataContext = createContext({});
@@ -26,18 +27,23 @@ export const DataProvider = ({ children }) => {
       setError(err);
     }
   }, []);
+
   useEffect(() => {
     if (data) return;
     getData();
-  });
+  }, [data, getData]);
+  
+  const value = useMemo(
+    () => ({
+      data,
+      error,
+    }),
+    [data, error]
+  );
   
   return (
     <DataContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        data,
-        error,
-      }}
+     value={value}
     >
       {children}
     </DataContext.Provider>
