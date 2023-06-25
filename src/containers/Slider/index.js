@@ -7,16 +7,19 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
 
   const nextCard = () => {
     setTimeout(() => {
-      setIndex(() =>
-        index < (byDateDesc?.length || 0) - 1 ? index + 1 : 0
+      setIndex((prevIndex) =>
+        prevIndex < (byDateDesc?.length || 0) - 1 ? prevIndex + 1 : 0
       );
-      
+      setActiveIndex((prevIndex) =>
+        prevIndex < (byDateDesc?.length || 0) - 1 ? prevIndex + 1 : 0
+      );
     }, 5000);
   };
   useEffect(() => {
@@ -25,7 +28,7 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        <div key={`${event.id}-${event.title}`}>
+        <div key={event.title}>
           <div
             className={`SlideCard SlideCard--${
               index === idx ? "display" : "hide"
@@ -44,10 +47,11 @@ const Slider = () => {
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
+                  // eslint-disable-next-line react/no-array-index-key
                   key={`${radioIdx}`}
                   type="radio"
                   name="radio-button"
-                  defaultChecked={index === radioIdx}
+                  checked={activeIndex === radioIdx}
                 />
               ))}
             </div>
