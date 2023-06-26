@@ -11,14 +11,18 @@ const Slider = () => {
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
+  const handleChangeRadio = (radioIdx) => {
+    setIndex(radioIdx);
+    setActiveIndex(radioIdx);
+  };
 
   const nextCard = () => {
     setTimeout(() => {
-      setIndex((prevIndex) =>
-        prevIndex < (byDateDesc?.length || 0) - 1 ? prevIndex + 1 : 0
+      setIndex(() =>
+        index < (byDateDesc?.length || 0) - 1 ? index + 1 : 0
       );
-      setActiveIndex((prevIndex) =>
-        prevIndex < (byDateDesc?.length || 0) - 1 ? prevIndex + 1 : 0
+      setActiveIndex(() =>
+        index < (byDateDesc?.length || 0) - 1 ? index + 1 : 0
       );
     }, 5000);
   };
@@ -52,6 +56,7 @@ const Slider = () => {
                   type="radio"
                   name="radio-button"
                   checked={activeIndex === radioIdx}
+                  onChange={() => handleChangeRadio(radioIdx)}
                 />
               ))}
             </div>
