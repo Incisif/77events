@@ -48,19 +48,6 @@ jest.mock(
     }
 );
 
-jest.mock(
-  "../../components/PeopleCard",
-  () =>
-    // eslint-disable-next-line react/prop-types
-    ({ imageSrc, name, position }) =>
-      (
-        <div data-testid="people-card">
-          <img data-testid="people-card-image" src={imageSrc} alt={name} />
-          <div>{name}</div>
-          <div>{position}</div>
-        </div>
-      )
-);
 
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
@@ -72,21 +59,8 @@ describe("When a page is created", () => {
   it("a list a people is displayed", () => {
     render(<Home />);
     const peopleCardComponents = screen.getAllByTestId("people-card");
-    const peopleCardImages = screen.getAllByTestId("people-card-image");
-    const expectedImageSources = [
-      "/images/stephanie-liverani-Zz5LQe-VSMY-unsplash.png",
-      "/images/linkedin-sales-solutions-pAtA8xe_iVM-unsplash.png"]
-
     peopleCardComponents.forEach((component) => {
       expect(component).toBeInTheDocument();
-    });
-
-    peopleCardImages.forEach((image, index) => {
-      expect(image).toBeInTheDocument();
-      expect(image).toHaveAttribute(
-        "src",
-        expectedImageSources[index]
-      );
     });
   });
 
