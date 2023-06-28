@@ -51,13 +51,13 @@ jest.mock(
 
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
-    render(<Home />);
+    render(<Home />)
     const eventListComponent = screen.getByTestId("event-list");
     expect(eventListComponent).toBeInTheDocument();
   });
 
   it("a list a people is displayed", () => {
-    render(<Home />);
+    render(<Home />)
     const peopleCardComponents = screen.getAllByTestId("people-card");
     peopleCardComponents.forEach((component) => {
       expect(component).toBeInTheDocument();
@@ -65,7 +65,9 @@ describe("When a page is created", () => {
   });
 
   it("a footer is displayed", () => {
-    // to implement
+    render(<Home/>)
+    const footer = screen.getByTestId("footer");
+    expect(footer).toBeInTheDocument();
   });
   it("an event card, with the last event, is displayed", () => {
     // to implement
