@@ -47,7 +47,19 @@ jest.mock(
       );
     }
 );
-
+const firstMockEvent = {
+  cover: "firstEventCover.png",
+  title: "First event",
+  date: "2023-01-01",
+};
+const lastMockEvent = {
+  cover: "lastEventCover.png",
+  title: "Last event",
+  date: "2023-02-01",
+};
+jest.mock("../../contexts/DataContext",()=>({
+useData: ()=>({data: {events: [firstMockEvent, lastMockEvent]}})
+}))
 
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
@@ -69,7 +81,9 @@ describe("When a page is created", () => {
     const footer = screen.getByTestId("footer");
     expect(footer).toBeInTheDocument();
   });
-  it("an event card, with the last event, is displayed", () => {
-    // to implement
+  it("an event card, with the last event, is displayed", async () => {
+    render(<Home />)
+    const lastEvent = await screen.findByText("Last event")
+    expect(lastEvent).toBeInTheDocument()
   });
 });
