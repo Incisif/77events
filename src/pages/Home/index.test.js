@@ -24,21 +24,42 @@ describe("When Form is created", () => {
       await screen.findByText("Message envoyé !");
     });
   });
-
 });
 
+const mockEvents = [
+  { id: 1, title: "Event 1", description: "Description 1" },
+  { id: 2, title: "Event 2", description: "Description 2" },
+];
+jest.mock(
+  "../../containers/Events",
+  () =>
+    function MockedEventList() {
+      return (
+        <div data-testid="event-list">
+          {mockEvents.map((event) => (
+            <div key={event.id} data-testid={event}>
+              <h2>{event.title}</h2>
+              <p>{event.description}</p>
+            </div>
+          ))}
+        </div>
+      );
+    }
+);
 
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
-    // to implement
-  })
+    render(<Home />);
+    const eventListComponent = screen.getByTestId("event-list");
+    expect(eventListComponent).toBeInTheDocument();
+  });
   it("a list a people is displayed", () => {
     // to implement
-  })
+  });
   it("a footer is displayed", () => {
     // to implement
-  })
+  });
   it("an event card, with the last event, is displayed", () => {
     // to implement
-  })
+  });
 });
