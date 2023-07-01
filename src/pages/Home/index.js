@@ -103,7 +103,7 @@ const Page = () => {
         <div className="FormContainer" id="contact">
           <h2 className="Title">Contact</h2>
           <Modal
-            
+
             Content={
               <div className="ModalMessage--success">
                 <div>Message envoyé !</div>

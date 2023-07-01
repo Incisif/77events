@@ -68,11 +68,14 @@ it("a list of events is displayed", () => {
   expect(eventListComponent).toBeInTheDocument();
 });
 
-it("a list a people is displayed", () => {
+it("affiche une liste de cartes de personnes", () => {
   render(<Home />);
   const peopleCardComponents = screen.getAllByTestId("people-card");
+  expect(peopleCardComponents).toHaveLength(6);
   peopleCardComponents.forEach((component) => {
-    expect(component).toBeInTheDocument();
+    const image = component.querySelector("img");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute("src");
   });
 });
 
