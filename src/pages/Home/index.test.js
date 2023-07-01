@@ -57,33 +57,32 @@ const lastMockEvent = {
   title: "Last event",
   date: "2023-02-01",
 };
-jest.mock("../../contexts/DataContext",()=>({
-useData: ()=>({data: {events: [firstMockEvent, lastMockEvent]}})
-}))
+jest.mock("../../contexts/DataContext", () => ({
+  useData: () => ({ data: { events: [firstMockEvent, lastMockEvent] } }),
+}));
 
-describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    render(<Home />)
-    const eventListComponent = screen.getByTestId("event-list");
-    expect(eventListComponent).toBeInTheDocument();
-  });
+describe("When a page is created", () => {});
+it("a list of events is displayed", () => {
+  render(<Home />);
+  const eventListComponent = screen.getByTestId("event-list");
+  expect(eventListComponent).toBeInTheDocument();
+});
 
-  it("a list a people is displayed", () => {
-    render(<Home />)
-    const peopleCardComponents = screen.getAllByTestId("people-card");
-    peopleCardComponents.forEach((component) => {
-      expect(component).toBeInTheDocument();
-    });
+it("a list a people is displayed", () => {
+  render(<Home />);
+  const peopleCardComponents = screen.getAllByTestId("people-card");
+  peopleCardComponents.forEach((component) => {
+    expect(component).toBeInTheDocument();
   });
+});
 
-  it("a footer is displayed", () => {
-    render(<Home/>)
-    const footer = screen.getByTestId("footer");
-    expect(footer).toBeInTheDocument();
-  });
-  it("an event card, with the last event, is displayed", async () => {
-    render(<Home />)
-    const lastEvent = await screen.findByText("Last event")
-    expect(lastEvent).toBeInTheDocument()
-  });
+it("a footer is displayed", () => {
+  render(<Home />);
+  const footer = screen.getByTestId("footer");
+  expect(footer).toBeInTheDocument();
+});
+it("an event card, with the last event, is displayed", async () => {
+  render(<Home />);
+  const lastEvent = await screen.findByText("Last event");
+  expect(lastEvent).toBeInTheDocument();
 });
